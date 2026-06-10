@@ -1,0 +1,399 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* =========================================================================
+   Elementum — Design System v3 (Gen-Z Energetic Refresh)
+   - Display: Syne (geometric, expressive)
+   - Body:    Inter (clean neutral sans)
+   - High-contrast dark base, electric accents, bold motion
+   ========================================================================= */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Expressive accent tokens */
+  --color-marker: var(--marker);
+  --color-brush: var(--brush);
+  --color-mint: var(--mint);
+  --color-mint-soft: var(--mint-soft);
+  --color-mint-deep: var(--mint-deep);
+  --color-brick: var(--brick);
+  --color-purple: var(--purple);
+  --color-ink: var(--ink);
+  --color-electric: var(--electric);
+  --color-neon: var(--neon);
+
+  --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.75rem;
+
+  /* Dark-first: near-black base for maximum contrast */
+  --background: oklch(0.09 0.010 260);        /* deep dark navy-black */
+  --foreground: oklch(0.97 0.008 80);          /* off-white, highly readable */
+  --ink: oklch(0.97 0.008 80);
+
+  --card: oklch(0.13 0.012 260);
+  --card-foreground: oklch(0.97 0.008 80);
+  --popover: var(--card);
+  --popover-foreground: var(--card-foreground);
+
+  --primary: oklch(0.97 0.008 80);
+  --primary-foreground: oklch(0.09 0.010 260);
+  --secondary: oklch(0.18 0.012 260);
+  --secondary-foreground: oklch(0.97 0.008 80);
+  --muted: oklch(0.18 0.012 260);
+  --muted-foreground: oklch(0.72 0.020 80);   /* much lighter than before = readable */
+  --accent: oklch(0.18 0.012 260);
+  --accent-foreground: oklch(0.97 0.008 80);
+  --destructive: oklch(0.62 0.22 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.75 0.15 150);
+
+  /* Electric accent palette */
+  --marker: oklch(0.91 0.20 95);              /* highlighter yellow */
+  --brush: oklch(0.72 0.22 340);              /* hot pink */
+  --mint: oklch(0.78 0.18 158);               /* electric green */
+  --mint-soft: oklch(0.20 0.06 158);          /* dark mint tint for cards */
+  --mint-deep: oklch(0.78 0.18 158);          /* same vivid mint for text */
+  --brick: oklch(0.68 0.22 25);               /* vivid orange-red */
+  --purple: oklch(0.62 0.25 290);             /* vibrant purple */
+  --electric: oklch(0.85 0.22 200);           /* electric cyan */
+  --neon: oklch(0.88 0.24 130);               /* neon lime */
+}
+
+/* No separate dark mode needed - this IS the dark mode */
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.03em;
+    color: var(--color-foreground);
+  }
+  p, span, a, li {
+    color: inherit;
+  }
+}
+
+/* ============== Gradient text utility ============== */
+.gradient-text {
+  background: linear-gradient(135deg, var(--mint) 0%, var(--electric) 50%, var(--purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.gradient-text-warm {
+  background: linear-gradient(135deg, var(--marker) 0%, var(--brush) 60%, var(--brick) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============== Expressive inline text decorations ============== */
+
+@utility hl-marker {
+  position: relative;
+  padding: 0 0.08em 0.1em;
+}
+.hl-marker::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.05em;
+  height: 0.42em;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 16' preserveAspectRatio='none'><path d='M2 10 Q 30 2 60 9 T 120 9 T 180 9 T 238 9' stroke='%23F0C418' stroke-width='7' stroke-linecap='round' fill='none' opacity='0.9'/></svg>");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@utility hl-brush {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  padding: 0.05em 0.3em;
+  font-weight: 500;
+}
+@utility hl-brush-bg {
+  position: absolute;
+  inset: 0 -0.15em;
+  background:
+    radial-gradient(80% 120% at 30% 40%, color-mix(in oklab, var(--brush) 85%, white) 0%, transparent 60%),
+    radial-gradient(120% 90% at 70% 60%, color-mix(in oklab, var(--brush) 95%, transparent) 0%, transparent 70%),
+    var(--brush);
+  z-index: -1;
+  border-radius: 48% 52% 60% 40% / 60% 40% 55% 45%;
+  transform: rotate(-2deg) skewX(-3deg);
+  filter: blur(0.5px) saturate(1.1);
+  opacity: 0.88;
+}
+
+@utility hl-pill {
+  display: inline-block;
+  background: var(--mint);
+  color: oklch(0.09 0.010 260);
+  border: 2px solid color-mix(in oklab, var(--mint) 65%, black);
+  border-radius: 9999px;
+  padding: 0.05em 0.55em;
+  line-height: 1.05;
+  transform: rotate(-1.5deg);
+}
+
+/* ============== Motion ============== */
+
+@utility float-slow {
+  animation: float-y 7s ease-in-out infinite;
+  will-change: transform;
+}
+@utility float-slower {
+  animation: float-y 9.5s ease-in-out infinite;
+  will-change: transform;
+}
+@utility float-medium {
+  animation: float-y 5.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-14px); }
+}
+
+@utility reveal-up {
+  animation: reveal-up 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@utility wobble {
+  animation: wobble 12s ease-in-out infinite;
+}
+@keyframes wobble {
+  0%, 100% { transform: rotate(-2deg); }
+  50%       { transform: rotate(2deg); }
+}
+
+/* ============== New Gen-Z animations ============== */
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px 4px oklch(0.78 0.18 158 / 0.3); }
+  50%       { box-shadow: 0 0 40px 12px oklch(0.78 0.18 158 / 0.6); }
+}
+@utility pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@utility spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.shimmer-text {
+  background: linear-gradient(90deg,
+    var(--foreground) 0%,
+    var(--mint) 25%,
+    var(--electric) 50%,
+    var(--purple) 75%,
+    var(--foreground) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+@keyframes border-dance {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  50%       { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+}
+.morphing-blob {
+  animation: border-dance 8s ease-in-out infinite;
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@utility slide-in-right {
+  animation: slide-in-right 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes counter-up {
+  from { opacity: 0; transform: translateY(20px) scale(0.8); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ============== Marquee scroll ============== */
+@utility marquee {
+  animation: marquee-scroll 20s linear infinite;
+  will-change: transform;
+}
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ============== Scroll-driven reveal ============== */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(2rem);
+  transition: opacity 800ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal-on-scroll.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-on-scroll [data-reveal-child] {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal-on-scroll.in-view [data-reveal-child] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll,
+  .reveal-on-scroll [data-reveal-child] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .shimmer-text { animation: none; }
+  .morphing-blob { animation: none; }
+}
+
+/* ============== Decorative background shapes ============== */
+.deco-squiggle {
+  position: absolute;
+  pointer-events: none;
+  color: var(--brush);
+  opacity: 0.5;
+  z-index: 0;
+}
+.deco-blob {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 9999px;
+  filter: blur(48px);
+  opacity: 0.25;
+  z-index: 0;
+}
+
+/* ============== Stats bar ============== */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--color-border);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background: var(--color-card);
+  margin-top: 3rem;
+}
+.stats-bar-item {
+  padding: 1.5rem 1.75rem;
+  text-align: center;
+  border-right: 1px solid var(--color-border);
+}
+.stats-bar-item:last-child { border-right: none; }
+.stats-bar-num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--color-foreground);
+}
+.stats-bar-label {
+  font-size: 0.72rem;
+  color: var(--color-muted-foreground);
+  margin-top: 0.2rem;
+  letter-spacing: 0.06em;
+}
+
+/* ============== Glow card ============== */
+.glow-card {
+  position: relative;
+  overflow: hidden;
+}
+.glow-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--mint), var(--purple), var(--brush));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+.glow-card:hover::before {
+  opacity: 1;
+}
+
+/* ============== Noise texture overlay ============== */
+.noise-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC42NSIgbnVtT2N0YXZlcz0iMyIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBmaWx0ZXI9InVybCgjbikiIG9wYWNpdHk9IjAuMDUiLz48L3N2Zz4=");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
